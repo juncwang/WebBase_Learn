@@ -43,7 +43,8 @@
             * `<a href="tel:13900000000"></a>`                      拨打电话 
             * `<a href="mailto:abc@qq.com"></a>`                    发送邮件 
             * `<a href="javascript:"></a>`                          协议限定符, 点击后就能运行逻辑代码了
-
+            * `<a href="http://xxx.html" target="_black"></a>`      新建一个网页进行跳转, 不在当页进行跳转
+            
         * `<form></form>`                                           发送数据表单
             * `<form method="get/post"></form>`                     发送的方法
             * `<form action="http://xxx"></form>`                   发送的地址
@@ -74,3 +75,20 @@
 * html 编码
     * `&nbsp;`                                                      空格
     * `&lt;` `&gt;`                                                 左右尖角符合
+
+##### css 元素
+
+1. 行级元素
+    * inline
+    * 内容决定行级元素的所占位置, 不可通过 css 改变宽高
+    * 默认标签: span strong em a del
+
+2. 块级元素
+    * block
+    * 独占一行, 可以通过 css 改变宽高
+    * 默认标签: div p ul li ol form address
+
+3. 行级块元素
+    * inline-block
+    * 内容决定大小, 可以改宽高
+    * 默认标签: img
