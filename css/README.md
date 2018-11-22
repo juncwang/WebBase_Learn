@@ -93,6 +93,8 @@
         * border-color                                          边框颜色
         * border-radius                                         边框圆角
     * overflow                                                  溢出部分处理
+        * overflow-x                                            横向溢出部分
+        * overflow-y                                            纵向溢出部分
 * 定位
     * position                                                  定位
     * left                                                      距离左边位置
