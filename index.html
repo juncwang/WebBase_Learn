@@ -8,23 +8,52 @@
     <title>淘宝网-淘！我喜欢</title>
     <link rel="stylesheet" href="./style.css">
     <script src=""></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+
+        li:nth-of-type(2n + 1){
+            background: darkcyan;
+        }
+    </style>
 </head>
 
 <body>
+    <ul>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+    </ul>
+
     <script>
-        var sum = function(){
-            let sum = 0
-            // for( let i = 0; i<arguments.length; i++)
-            // {
-            //     sum += arguments[i]
-            // }
-
-
-            console.log(sum)
-        }
-
-        sum( 1,2,3,4,5,6,7,8,89)
+        let f = (
+            function f(){
+                return "1"
+            },
+            function g(){
+                return 2
+            }()
+        )
+        
+        console.log(typeof f)
+        console.log(f)
+        
+        
     </script>
+
+    <div>
+        <ul>
+            <li><a href=""></a><a href=""></a></li>
+        </ul>
+    </div>
     
 </body>
 </html>
