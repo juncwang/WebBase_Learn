@@ -14,46 +14,137 @@
             padding: 0;
         }
 
-        ul{
-            list-style: none;
+        .content {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #aaa;
+            position: relative;
         }
-
-
-        li:nth-of-type(2n + 1){
-            background: darkcyan;
+        .he{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            line-height: 100px;
+            text-align: center;
+        }
+        span {
+            background: white;
         }
     </style>
 </head>
 
 <body>
-    <ul>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-    </ul>
+    <div class="content">
+        <div class="he"><span>hello world</span></div>
+    </div>
 
     <script>
-        let f = (
-            function f(){
-                return "1"
-            },
-            function g(){
-                return 2
-            }()
-        )
-        
-        console.log(typeof f)
-        console.log(f)
-        
-        
-    </script>
+        // Person.prototype.LastName = "Deng"
+        // Person.prototype.say = function () {
+        //     console.log('hehe')
+        // }
+        // function Person(name, sex, age) {
+        //     this.LastName = name
+        //     this.sex = sex
+        //     this.age = age
+        // }
 
-    <div>
-        <ul>
-            <li><a href=""></a><a href=""></a></li>
-        </ul>
-    </div>
+        // var person1 = new Person('xuming', 'male', 35)
+        // var person2 = new Person()
+
+        // Car.prototype.height = 1400
+        // Car.prototype.lang = 4900
+        // Car.prototype.carName = "BMW"
+        // function Car(color, owner){
+        //     this.color = color
+        //     this.owner = owner
+        // }
+
+        // var car = new Car('red', 'prof.ji')
+
+        // async function post(url,data){
+        //     const response = await fetch(url, {
+        //         method: "POST",
+        //         headers: {
+        //             'Content-type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data)
+        //     }
+        //     )
+        //     const resData = await response.json()
+        //     console.log(resData)
+        // }
+
+        // post("https://design.19area.cn/frontAjax/userLoginAction.action", {
+        //     loginName: "123123",
+        //     loginPwd: "123123"
+        // })
+
+        // Person.prototype.LastName = "Deng"
+        // Person.prototype.say = function(){
+        //     console.log(this.LastName)
+        // }
+
+        // function Person(name, age, sex){
+        //     this.name = name
+        //     this.age = age
+        //     this.sex = sex
+        // }
+
+        // var person1 = new Person('xuming', 35, 'male')
+
+        // Car.prototype.carName = "BMW"
+        // Car.prototype.height = 1400
+        // Car.prototype.lang = 4900
+        // function Car(color, owner){
+        //     this.owner = owner
+        //     this.color = color
+        // }
+
+        // var car1 = new Car('red', 'prof.ji')
+        // var car2 = new Car('green', 'laodeng')
+            
+        // Person.prototype.lastName = "Deng"
+
+        // function Person(name){
+        //     this.name = name
+        // }
+
+        // var person = new Person('xuming')
+        
+        // Car.prototype = {
+        //     height: 1400,
+        //     lang: 4900,
+        //     carName: 'BMW'
+        // }
+        
+        // function Person(){
+
+        // }
+
+        // Car.prototype = {
+        //     constructor : Person
+        // }
+        // function Car(){
+
+        // }
+
+        // var car = new Car()
+
+        Person.prototype.name = 'abc'
+        function Person(){
+
+        }
+
+        var person = new Person()
+
+        person.name
+    </script>
     
 </body>
 </html>

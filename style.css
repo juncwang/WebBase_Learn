@@ -12,3 +12,9 @@ html,body {
     color: #3c3c3c;
     overflow-x: hidden;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
