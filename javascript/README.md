@@ -47,6 +47,10 @@
     1. `name : "Wang"`                          属性定义
     2. `fun : function(){}`                     方法定义 
 
+* 对象属性访问
+    1. `obj.name`                               
+    2. `obj['name']`
+
 * 对象的关键字
     1. `this.name`                              表示调用自身的 name 属性
     2. `delete object.name`                     表示删除 object 的 name 属性, undefine
@@ -54,15 +58,31 @@
 * 对象的默认方法
     1. `toString()`                             默认打印结果
         * `call(值)`                            使用此方法调用 toString 方法等到返回结果
-    2. `create(原型)`                           使用原型对象创建对象
+    2. `create(原型)`                           使用原型对象创建对象(只能使用原型或 null )
     3. `call(值, ...)`                          执行函数 等同于 abc(), 如果给值, 那么方法内的 this 就会指向给的值, 其他参数就是传入的实参列表
+                                                使用类使用此方法就可以使用其他类的方法来构造自己
     4. `apply(值, [.. , ..]`                    与 call 一样, 只是一个传实参列表, 一个传数组
+    5. `obj.hasOwnProperty(key)`                判断是否不是继承的属性
+    6. `obj instanceof Obj`                     判断 obj对象 是否为 Obj类 构造出来的
 
 * 参数
     * `__proto__`                               原型指向
         * `prototype`                           原型对象包含函数实例共享的方法和属性(类调用)
             * `constructor`                     构造器(对象调用)
 
+* 继承
+    * 继承实现原理 - 实现 target 继承自 origin
+    ```js
+        var inherit = (function(){                              // 定义一个立即执行函数
+            var F = function(){}                                // 利用闭包实现私有变量
+            return function(target, origin){                    // 返回一个函数实现 target 继承于 origin
+                F.prototype = origin.prototype                  // 使用 F 的 prototype 属性获取 origin 的 prototype 属性
+                target.prototype = new F()                      // 获取一个 F 的对象
+                target.prototype.constuctor = target            // 构造函数指定为 target
+                target.prototype.uber = origin.prototype        // 父类指定为 origin 的 prototype 属性
+            }
+        }())
+    ```
 
 
 ##### 执行函数
