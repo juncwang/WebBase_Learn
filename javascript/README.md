@@ -29,19 +29,27 @@
     1. `function test(a,b){}`                   定义时的参数叫形参
         * `sum`                                 所有定义的形参数组
         * `arguments`                           所有传入值的数组, 与形参有映射规则, 与引用一样改一个另一个也会改变
+            * `arguments.callee`                自身对象
         * `name`                                函数名称
         * `[[scope]]`                           作用域链 scope[0] 存放 AO, scope[1] 存放 GO
         * `return`                              函数返回值
     2. `test(2,6)`                              使用时的传入值叫实参
+    3. `caller`                                 调用函数的对象
 
 * 立即执行函数
     * `(function(){}())`                        立即执行函数
+
+* 进阶为对象方式
+    * `new func()`                              使用 new 关键字将方法转为对象
+    * 方法内, 程序会在第一行执行一个默认语句
+        * `var this = Object.create(func.prototype)`
 
 ##### 定义对象
 
 * 对象的定义
     1. `var object = {}`                        对象的一般定义
     2. `var object = new Object()`              通过系统定义对象
+    3. `var object = Object.create(Object.prototype)`   
 
 * 对象内定义属性及方法
     1. `name : "Wang"`                          属性定义
@@ -84,6 +92,68 @@
         }())
     ```
 
+* 深拷贝
+    * 实现一个对象完全拷贝另一个对象的所有属性(不包含继承的属性)
+    ```js
+        function deepClone(source) {
+            if (!source || typeof source !== 'object') {
+                throw new Error('error arguments', 'shallowClone');
+            }
+            var targetObj = source.constructor === Array ? [] : {};
+            for (var keys in source) {
+                if (source.hasOwnProperty(keys)) {
+                    if (source[keys] && typeof source[keys] === 'object') {
+                        targetObj[keys] = source[keys].constructor === Array ? [] : {};
+                        targetObj[keys] = deepClone(source[keys]);
+                    } else {
+                        targetObj[keys] = source[keys];
+                    }
+                }
+            }
+            return targetObj;
+    }
+    ```
+
+##### 数组
+
+* 创建方式
+    1. `var arr = [1,2,3]`                      
+    2. `var arr = new Array(1,2,3,)`
+
+* 默认属性
+    * `length`                                  数组长度
+
+* 方法
+    * `push`                                    在数组末尾增加一个元素
+    * `pop`                                     删除数组末位, 并返回删除的数
+    * `shift`                                   把数组第一位删除
+    * `unshift`                                 在数组最前面加一个元素
+    * `reverse`                                 倒叙
+    * `splice`                                  从第几位开始, 截取多少长度, 在切开出添加新的数据
+    * `sort`                                    排序, 参数为回调函数, 从数组中依次取出两个数进行比较, 返回负值或零食不变，正值就调换位置
+    ```js
+    arr.sort((a,b) => a - b)
+    ```
+    
+    * `concat`                                  一个数组拼接另一个数组, 并返回新的数组
+    * `join`                                    使用一个字符串, 对数组进行元素间拼接, 并返回字符串
+    * `s`                                       使用一个字符, 把字符串拆分为数组, 并返回数组
+    * `toString`                                把字符串内容用字符串返回
+    * `slice`                                   从第几位开始, 截取到第几位, 并返回新的数组
+
+* 类数组
+    1. 属性必须为索引(数字)属性
+    2. 必须有 length 属性
+    3. 最好加上 push 方法或其他数组方法
+        ```js
+            var obj = {
+                '0' : 'a',
+                '1' : 'b',
+                '2' : 'c',
+                'length' : 3,
+                'push' : Array.prototype.push
+            }
+        ```
 
 ##### 执行函数
 
