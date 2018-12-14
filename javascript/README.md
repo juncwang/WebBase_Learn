@@ -4,6 +4,11 @@
 * `<script type="text/javascript" src="script.js"></script>` 外部引入方式
 * `<script type="text/javascript">...</script>`    内部使用方式
 
+##### 系统默认使用 es3 的方法
+
+* 强制执行 es5 的方法
+    * `"use strict"`              在文档前面加入该字符串 开启 es5 严格模式
+
 ##### 预编译
 
 * Activation Object 方法体
@@ -92,27 +97,16 @@
         }())
     ```
 
-* 深拷贝
-    * 实现一个对象完全拷贝另一个对象的所有属性(不包含继承的属性)
-    ```js
-        function deepClone(source) {
-            if (!source || typeof source !== 'object') {
-                throw new Error('error arguments', 'shallowClone');
-            }
-            var targetObj = source.constructor === Array ? [] : {};
-            for (var keys in source) {
-                if (source.hasOwnProperty(keys)) {
-                    if (source[keys] && typeof source[keys] === 'object') {
-                        targetObj[keys] = source[keys].constructor === Array ? [] : {};
-                        targetObj[keys] = deepClone(source[keys]);
-                    } else {
-                        targetObj[keys] = source[keys];
-                    }
-                }
-            }
-            return targetObj;
-    }
-    ```
+##### try{}catch(e){}
+* 属性
+    1. `e.name`                     // 错误名称
+        * `EvalError`               eval() 使用与定义不一样
+        * `RangeError`              数值越界
+        * `ReferenceError`          非法或不能识别的引用数值
+        * `SyntaxError`             发生语法解析错误
+        * `TypeError`               操作数类型错误
+        * `URIError`                URI 处理函数使用不当
+    2. `e.message`                  // 错误信息
 
 ##### 数组
 
@@ -174,6 +168,7 @@
 * `window`                                      窗口工具
     * `alert`                                   提示框
     * `confirm`                                 判断提示框
+    * `eval`                                    把字符串当代码执行, es3 不能使用
     * `prompt`                                  输入框 
     * `setTimeout`                              系统等待 n 毫秒后启动回调函数
 
