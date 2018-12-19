@@ -1,57 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>淘宝网-淘！我喜欢</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="javascript/Tools.js"></script>
+    <title>Document</title>
     <style>
-     * {
-         margin: 0;
-         padding: 0;
-         list-style: none;
-     }
-
-     html, body{
-         width: 100vw;
-         height: 100vh;
-         overflow: hidden;
-     }
-
-     body{
-         display: flex;
-         justify-content: center;
-         align-items: center;
-     }
-
-     div {
-         width: 200px;
-         height: 200px;
-
-         background: yellowgreen;
-     }
+    *{
+        font-family: arial;
+        font-weight: lighter;
+    }
     </style>
 </head>
-
 <body>
-   <div>
-   </div>
-   <script>
-      function Son(){
-         var abc = {};
-         abc.a = 1;
-         abc.b = 2;
-         abc.func = function(){
-            console.log(this.a);
-         }
-         return abc;
-      }
+    <div>
+        <i></i>
+        <b></b>
+        <span></span>
+        </b>
+    </div>
+    <script>
+        var div = document.getElementsByTagName('div')[0];
+        var b = document.getElementsByTagName('span')[0];
+        var p = document.createElement('p');
 
-      var a = Son();
-
-   </script>
+        Element.prototype.insertAfter = function(Ele, EleChild){
+            var child = this.children
+            var childlen = child.length
+            if(childlen > 0){
+                for(var i = 0; i < childlen; i++){
+                    if(child[i].nodeName == EleChild.nodeName){
+                        if(i === childlen-1){
+                            this.appendChild(Ele)
+                        }else{
+                            this.insertBefore(Ele,child[i+1])
+                        }
+                    }+
+                }
+            }
+            return Ele
+        }
+        console.log(typeof(div))
+    </script>
 </body>
 </html>

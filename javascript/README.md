@@ -145,7 +145,8 @@
                 '1' : 'b',
                 '2' : 'c',
                 'length' : 3,
-                'push' : Array.prototype.push
+                'push' : Array.prototype.push,
+                'slice' : Array.prototype.slice
             }
         ```
 
@@ -153,74 +154,144 @@
 
 * 控制台
 * `console.`                                    控制台
-    * `log`                                     控制台输出
+    * `log(str)`                                控制台输出
 
 * 文档
-* `document`                                    文档
-    * `body`                                    内容
-        * `appendChild`                         添加一个子元素
-    * `createElement`                           创建元素
-    * `getElementById`                          通过 id 获取元素
-    * `getElementsByTagName`                    通过标签名字获取元素组
-    * `write`                                   网页输出   
+* `document`                                    整个文档
+    * `documentElement`                         html 内容
+    * `head`                                    head 内容
+    * `body`                                    body 内容
+    * `createElement(str)`                      创建元素节点
+    * `createTextNode(str)`                     创建文本节点                        
+    * `createComment(str)`                      创建注释节点
+    * `createDocumentFragment(str)`             创建文档碎片节点
+    * `write(str)`                              网页输出   
+    * 选择器
+    * `getElementById(str)`                     通过 id 获取元素
+    * `getElementsByClassName(str)`             通过 class 获取元素组, 元素也可使用
+    * `getElementsByTagName(str)`               通过标签名字获取元素组
+    * `getElementsByName(str)`                  通过 name 属性获取元素组
+    * `querySelector(str)`                      通过 css 选择器规则选择元素, 副本
+    * `querySelectorAll(str)`                   通过 css 选择器规则选择元素组, 副本
 
+* 元素方法
+* `addEventListener()`                          添加一个事件
+* `appendChild(Ele)`                            添加一个子节点
+* `insertBefore(Ele,EleChild)`                  为子元素节点 strChild 之前的位置插入一个节点
+* `remove()`                                    删除自身
+* `removeChild(EleChild)`                       删除子节点 strChild
+* `replaceChild(Ele,EleChild)`                  使用 Ele 替换子元素节点 strChild
+* `className`                                   对元素的 class 进行操作
+* `innerHTML`                                   设置元素内的 html 内容(参数)
+* `innerTEXT`                                   设置元素内的 TEXT 内容(参数)
+* `textContent`                                 元素的内容
+* `setAttribute(attName,strVal)`                设置元素的属性
+* `getAttribute(attName)`                       获取元素的属性
+                               
+* `style`                                       样式
+    * `cssText`                                 设置 css 样式(参数)
+    * --------------------------------------------------------------------------
+    * `background`                              背景
+    * `backgroundColor`                         背景颜色
+    * `display`                                 显示
+    * `width`                                   宽度
+    * `height`                                  高度
+
+* 属性
+    * `nodeName`                                节点名称(只读)
+    * `nodeType`                                节点类型节点类型
+        1. 元素节点
+        2. 属性节点
+        3. 文本节点
+        8. 注释节点
+        9. document 节点
+        11. DocumentFragment
+    * `nodeValue`                               节点的值(只有文本节点有)
+    * `attributes`                              属性节点集合
+    * `hasChildNodes()`                         是否有子节点
+* 关系
+    * 节点
+        * `parentNode`                                  父节点
+        * `childNodes`                                  子节点组
+        * `firstChild`                                  第一个子节点
+        * `lastChild`                                   最后一个子节点
+        * `nextSibling`                                 下一个兄弟节点
+        * `previousSibling`                             上一个兄弟节点
+    * 元素节点
+        * `parentElement`                               父元素节点
+        * `children`                                    子元素节点组
+        * `childElementCount`                           子元素节点的个数
+        * `firstElementChild`                           第一个元素子节点
+        * `lastElementChild`                            最后一个元素子节点
+        * `nextElementSibling`                          下一个兄弟元素节点
+        * `previousElementSibling`                      上一个兄弟元素节点
+* 事件
+    * `click()`                                     调用元素点击事件
+    * `onclick`                                     设置点击事件的回调函数(参数)
+    * `onmouseover`                                 鼠标滑动事件的回调函数(参数e)
+    * `onkeydown`                                   键盘按下事件的回调函数(参数e)
+    
 * 窗口
 * `window`                                      窗口工具
-    * `alert`                                   提示框
-    * `confirm`                                 判断提示框
-    * `eval`                                    把字符串当代码执行, es3 不能使用
-    * `prompt`                                  输入框 
-    * `setTimeout`                              系统等待 n 毫秒后启动回调函数
+    * `alert(str)`                              提示框
+    * `confirm(str)`                            判断提示框
+    * `eval(str)`                               把字符串当代码执行, es3 不能使用
+    * `prompt(str)`                             输入框 
+    * `setInterval(function,num)`               系统每过 n 毫秒调用一次回调函数, 返回一个时间句柄
+    * `clearInterval(timer)`                    通过时间句柄清除计时器
+    * `setTimeout(function,num)`                系统等待 n 毫秒后启动回调函数, 返回一个定时器句柄
+    * `clearTimeout(timer)`                     通过事件句柄清除定时器
+    * `event`                                   事件, ie 兼容性问题, 一般直接用传入的 e 
+        * `target`                              事件目标
+        * `srcElement`                          事件目标, ie 兼任性问题
 
-* 数学相关
-* `Math`                                        数学任务
-    * `abs`                                     绝对值
-    * `acos`                                    反余玄值
-    * `asin`                                    反正玄值
-    * `atan`	                                介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值
-    * `atan2`	                                从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）
-    * `ceil`	                                对数进行上舍入
-    * `cos`	                                    数的余弦
-    * `exp`	                                    返回 e 的指数
-    * `floor`	                                对数进行下舍入
-    * `log`	                                    返回数的自然对数（底为e）
-    * `max`	                                    返回 x 和 y 中的最高值
-    * `min`	                                    返回 x 和 y 中的最低值
-    * `pow`	                                    返回 x 的 y 次幂
-    * `random`	                                返回 0 ~ 1 之间的随机数
-    * `round`	                                把数四舍五入为最接近的整数
-    * `sin`	                                    返回数的正弦
-    * `sqrt`	                                返回数的平方根
-    * `tan`	                                    返回角的正切
-    * `toSource`	                            返回该对象的源代码
-    * `valueOf`	                                返回 Math 对象的原始值
+
 
 * 类型转换
-* `Boolean`                                     转换为布林类型
-* `Number`                                      字符串数字转换成数
-* `parseFloat`                                  其他类型转换成浮点数
-* `parseInt`                                    其他类型转换成整数,第二个参数为进制(默认10)
-* `String`                                      把其他类型转换成字符串
-* `typeof`                                      返回变量类型
-* `isNaN`                                       返回传入值是否为 NaN, 此方法先使用 Number 方法进行转换后比较
+* `Boolean(var)`                                转换为布林类型
+* `Number(var)`                                 字符串数字转换成数
+* `parseFloat(var)`                             其他类型转换成浮点数
+* `parseInt(var)`                               其他类型转换成整数,第二个参数为进制(默认10)
+* `String(var)`                                 把其他类型转换成字符串
+* `typeof(var)`                                 返回变量类型
+* `isNaN(var)`                                  返回传入值是否为 NaN, 此方法先使用 Number 方法进行转换后比较
 
 * 变量方法
-* `charAt`                                      取出字符串第几个字符
-* `charCodeAt`                                  返回字符串第 n 位 asc 编码
-* `toFixed`                                     保留多少位数, 下一位四舍五入
-* `toString`                                    其他类型转换成字符串,参数为进制(默认10)
+* `charAt(num)`                                 取出字符串第几个字符
+* `charCodeAt(num)`                             返回字符串第 n 位 asc 编码
+* `toFixed(num)`                                保留多少位数, 下一位四舍五入
+* `toString()`                                  其他类型转换成字符串,参数为进制(默认10)
 
 * 数组方法
 * `length`                                      数组的长度(参数)
 
-* 元素方法
-* `addEventListener`                            添加一个事件
-* `appendChild`                                 添加一个子元素
-* `click`                                       调用元素点击事件
-* `innerHTML`                                   设置元素内的 html 内容(参数)
-* `innerTEXT`                                   设置元素内的 TEXT 内容(参数)
-* `onclick`                                     设置点击事件的回调函数(参数)
-* `setAttribute`                                设置元素的属性
-* `style`                                       样式
-    * `cssText`                                 设置 css 样式(参数)
-* `value`                                       元素的值
+* 数学相关
+* `Math`                                        
+    * `abs(num)`                                绝对值
+    * `acos(num)`                               反余玄值
+    * `asin(num)`                               反正玄值
+    * `atan(numX,numY)`	                        介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值
+    * `atan2(numX,numY)`	                    从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）
+    * `ceil(num)`	                            对数进行上舍入
+    * `cos(num)`	                            数的余弦
+    * `exp(num)`	                            返回 e 的指数
+    * `floor(num)`	                            对数进行下舍入
+    * `log(num)`	                            返回数的自然对数（底为e）
+    * `max(numX,numY)`	                        返回 x 和 y 中的最高值
+    * `min(numX,numY)`	                        返回 x 和 y 中的最低值
+    * `pow(numX,numY)`	                        返回 x 的 y 次幂
+    * `random()`	                            返回 0 ~ 1 之间的随机数
+    * `round(num)`	                            把数四舍五入为最接近的整数
+    * `sin(num)`	                            返回数的正弦
+    * `sqrt(num)`	                            返回数的平方根
+    * `tan(num)`	                            返回角的正切
+    * `toSource(num)`	                        返回该对象的源代码
+    * `valueOf(num)`	                        返回 Math 对象的原始值
+
+##### 类
+
+* 时间类
+* `new Date()`
+    * `getTime()`                               获取当前时间的时间戳
+
+

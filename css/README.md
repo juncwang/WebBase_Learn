@@ -78,6 +78,7 @@
     * text-overflow                                             字体溢出部分控制
     * color                                                     字体颜色
 * 盒子模型
+    * box-sizing                                                设置盒模型
     * margin                                                    外边距
         * margin-left                                           左外边距
         * margin-right                                          右外边距
