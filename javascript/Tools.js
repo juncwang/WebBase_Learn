@@ -1,6 +1,12 @@
-// 深度拷贝 - deepClone(origin, target)
-// 判断类型 - type(target)
-// 数组去重 - Array.prototype.unique() - 把方法直接放入到 Array 的方法
+// javascript 工具方法
+// 深度拷贝并返回新对象 - deepClone(origin, target)
+// 判断类型返回类型字符串 - type(target)
+// 数组去重并返回新数组 - Array.prototype.unique() - 把方法直接放入到 Array 的方法
+
+// document 工具方法 
+// 获取浏览器滚动条值对象 {x, y} - getScrollOffset()
+// 获取浏览器可视宽高对象 {w, h} - getViewportOffset()
+// 获取元素的样式信息 - getStyle(elem, str)
 // 实现在元素下一位加入新元素 - Element.prototype.insertAfter(Ele, eleChild) - 类似于 insertBefore 方法
 
 
@@ -53,6 +59,49 @@ Array.prototype.unique = function(){
     return arr;
 }
 
+function getScrollOffset(){
+    if(window.pageXOffset){
+        return {
+            x : window.pageXOffset,
+            y : window.pageYOffset
+        }
+    }else{
+        return {
+            x : document.body.scrollLeft + document.documentElement.scrollLeft,
+            y : document.body.scrollTop + document.documentElement.scrollTop
+        }
+    }
+}
+
+function getViewportOffset(){
+    if(window.innerWidth){
+        return {
+            w : window.innerWidth,
+            h : window.innerHeight
+        }
+    }else{
+        if(document.compatMode === 'BackCompat'){
+            return {
+                w : document.body.clientWidth,
+                h : document.body.clientHeight
+            }
+        }else{
+            return {
+                w : document.documentElement.clientWidth,
+                h : document.documentElement.clientHeight
+            }
+        }
+    }
+}
+
+function getStyle(elem, prop){
+    if(window.getComputedStyle){
+        return window.getComputedStyle(elem, null)[prop]
+    }else{
+        return elem.currentStyle[prop]
+    }
+}
+
 Element.prototype.insertAfter = function(Ele, EleChild){
     var child = this.children
     var childlen = child.length
@@ -64,9 +113,9 @@ Element.prototype.insertAfter = function(Ele, EleChild){
                 }else{
                     this.insertBefore(Ele,child[i+1])
                 }
-                return true
+                return Ele
             }
         }
     }
-    return false
+    console.error("Uncaught DOMException: Failed to execute 'insertAfter' on 'Node': The node before which the new node is to be inserted is not a child of this node.\n\tat <anonymous>:1:5")
 }

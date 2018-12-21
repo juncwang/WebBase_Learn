@@ -158,92 +158,122 @@
 
 * 文档
 * `document`                                    整个文档
+    * `compatMode`                              当前浏览器模式
+    * `write(str)`                              网页输出   
     * `documentElement`                         html 内容
+        * `clientWidth`                         可视 html 的宽度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `clientHeight`                        可视 html 的高度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `scrollLeft`                          横向滚动条距离, 如果 body 的该值无意义, 这个值就有意义
+        * `scrollTop`                           纵向滚动条距离, 如果 body 的该值无意义, 这个值就有意义
     * `head`                                    head 内容
     * `body`                                    body 内容
-    * `createElement(str)`                      创建元素节点
-    * `createTextNode(str)`                     创建文本节点                        
-    * `createComment(str)`                      创建注释节点
-    * `createDocumentFragment(str)`             创建文档碎片节点
-    * `write(str)`                              网页输出   
+        * `clientWidth`                         可视 html 的宽度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `clientHeight`                        可视 html 的高度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `scrollLeft`                          横向滚动条距离, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `scrollTop`                           纵向滚动条距离, 如果 documentElement 的该值无意义, 这个值就有意义
+    * 创建元素
+        * `createElement(str)`                      创建元素节点
+        * `createTextNode(str)`                     创建文本节点                        
+        * `createComment(str)`                      创建注释节点
+        * `createDocumentFragment(str)`             创建文档碎片节点
     * 选择器
-    * `getElementById(str)`                     通过 id 获取元素
-    * `getElementsByClassName(str)`             通过 class 获取元素组, 元素也可使用
-    * `getElementsByTagName(str)`               通过标签名字获取元素组
-    * `getElementsByName(str)`                  通过 name 属性获取元素组
-    * `querySelector(str)`                      通过 css 选择器规则选择元素, 副本
-    * `querySelectorAll(str)`                   通过 css 选择器规则选择元素组, 副本
+        * `getElementById(str)`                     通过 id 获取元素
+        * `getElementsByClassName(str)`             通过 class 获取元素组, 元素也可使用
+        * `getElementsByTagName(str)`               通过标签名字获取元素组
+        * `getElementsByName(str)`                  通过 name 属性获取元素组
+        * `querySelector(str)`                      通过 css 选择器规则选择元素, 副本
+        * `querySelectorAll(str)`                   通过 css 选择器规则选择元素组, 副本
 
-* 元素方法
-* `addEventListener()`                          添加一个事件
-* `appendChild(Ele)`                            添加一个子节点
-* `insertBefore(Ele,EleChild)`                  为子元素节点 strChild 之前的位置插入一个节点
-* `remove()`                                    删除自身
-* `removeChild(EleChild)`                       删除子节点 strChild
-* `replaceChild(Ele,EleChild)`                  使用 Ele 替换子元素节点 strChild
-* `className`                                   对元素的 class 进行操作
-* `innerHTML`                                   设置元素内的 html 内容(参数)
-* `innerTEXT`                                   设置元素内的 TEXT 内容(参数)
-* `textContent`                                 元素的内容
-* `setAttribute(attName,strVal)`                设置元素的属性
-* `getAttribute(attName)`                       获取元素的属性
-                               
-* `style`                                       样式
-    * `cssText`                                 设置 css 样式(参数)
-    * --------------------------------------------------------------------------
-    * `background`                              背景
-    * `backgroundColor`                         背景颜色
-    * `display`                                 显示
-    * `width`                                   宽度
-    * `height`                                  高度
+* 元素节点
+* `Element`                                     
+    * `addEventListener()`                          添加一个事件
+    * `appendChild(Ele)`                            添加一个子节点
+    * `insertBefore(Ele,EleChild)`                  为子元素节点 strChild 之前的位置插入一个节点
+    * `remove()`                                    删除自身
+    * `removeChild(EleChild)`                       删除子节点 strChild
+    * `replaceChild(Ele,EleChild)`                  使用 Ele 替换子元素节点 strChild
+    * `className`                                   对元素的 class 进行操作
+    * `innerHTML`                                   设置元素内的 html 内容(参数)
+    * `innerTEXT`                                   设置元素内的 TEXT 内容(参数)
+    * `textContent`                                 元素的内容
+    * `setAttribute(attName,strVal)`                设置元素的属性
+    * `getAttribute(attName)`                       获取元素的属性
+    * `getBoundingClientRect()`                     获取元素在 html 中的位置及宽高信息(更改元素属性后, 不会立即改变值, 不建议使用)
+    * `offsetWidth`                                 返回元素的宽度(包含 width padding)
+    * `offsetHeight`                                返回元素的高度(包含 height padding)
+    * `offsetTop`                                   返回元素相对于带定位属性父级的上部位置(包含 top margin)
+    * `offsetLeft`                                  返回元素相对于带定位属性父级的左部位置(包含 left margin)
+    * `offsetParent`                                返回元素的有定位属性的父级, 如没有, 则返回 body, body 以上返回 null
 
-* 属性
-    * `nodeName`                                节点名称(只读)
-    * `nodeType`                                节点类型节点类型
-        1. 元素节点
-        2. 属性节点
-        3. 文本节点
-        8. 注释节点
-        9. document 节点
-        11. DocumentFragment
-    * `nodeValue`                               节点的值(只有文本节点有)
-    * `attributes`                              属性节点集合
-    * `hasChildNodes()`                         是否有子节点
-* 关系
-    * 节点
-        * `parentNode`                                  父节点
-        * `childNodes`                                  子节点组
-        * `firstChild`                                  第一个子节点
-        * `lastChild`                                   最后一个子节点
-        * `nextSibling`                                 下一个兄弟节点
-        * `previousSibling`                             上一个兄弟节点
-    * 元素节点
-        * `parentElement`                               父元素节点
-        * `children`                                    子元素节点组
-        * `childElementCount`                           子元素节点的个数
-        * `firstElementChild`                           第一个元素子节点
-        * `lastElementChild`                            最后一个元素子节点
-        * `nextElementSibling`                          下一个兄弟元素节点
-        * `previousElementSibling`                      上一个兄弟元素节点
-* 事件
-    * `click()`                                     调用元素点击事件
-    * `onclick`                                     设置点击事件的回调函数(参数)
-    * `onmouseover`                                 鼠标滑动事件的回调函数(参数e)
-    * `onkeydown`                                   键盘按下事件的回调函数(参数e)
+    * `currentStyle`                                返回一个 css 样式表(包含所有样式表) (ie8)    
+        * `cssProp`                                 css 样式名称, '-'分隔符用小驼峰代替, 仅为行间样式
+    * `style`                                       样式(仅能获取行间样式)
+        * `cssText`                                 设置 css 样式(参数)
+        * --------------------------------------------------------------------------
+        * `cssProp`                                 css 样式名称, '-'分隔符用小驼峰代替, 仅为行间样式
+
+    * 属性
+        * `nodeName`                                节点名称(只读)
+        * `nodeType`                                节点类型节点类型
+            1. 元素节点
+            2. 属性节点
+            3. 文本节点
+            8. 注释节点
+            9. document 节点
+            11. DocumentFragment
+        * `nodeValue`                               节点的值(只有文本节点有)
+        * `attributes`                              属性节点集合
+        * `hasChildNodes()`                         是否有子节点
+    * 关系
+        * 节点
+            * `parentNode`                                  父节点
+            * `childNodes`                                  子节点组
+            * `firstChild`                                  第一个子节点
+            * `lastChild`                                   最后一个子节点
+            * `nextSibling`                                 下一个兄弟节点
+            * `previousSibling`                             上一个兄弟节点
+        * 元素节点
+            * `parentElement`                               父元素节点
+            * `children`                                    子元素节点组
+            * `childElementCount`                           子元素节点的个数
+            * `firstElementChild`                           第一个元素子节点
+            * `lastElementChild`                            最后一个元素子节点
+            * `nextElementSibling`                          下一个兄弟元素节点
+            * `previousElementSibling`                      上一个兄弟元素节点
+    * 事件
+        * `click()`                                     调用元素点击事件
+        * `onclick`                                     设置点击事件的回调函数(参数)
+        * `onmouseover`                                 鼠标滑动事件的回调函数(参数e)
+        * `onkeydown`                                   键盘按下事件的回调函数(参数e)
     
 * 窗口
-* `window`                                      窗口工具
-    * `alert(str)`                              提示框
-    * `confirm(str)`                            判断提示框
-    * `eval(str)`                               把字符串当代码执行, es3 不能使用
-    * `prompt(str)`                             输入框 
-    * `setInterval(function,num)`               系统每过 n 毫秒调用一次回调函数, 返回一个时间句柄
-    * `clearInterval(timer)`                    通过时间句柄清除计时器
-    * `setTimeout(function,num)`                系统等待 n 毫秒后启动回调函数, 返回一个定时器句柄
-    * `clearTimeout(timer)`                     通过事件句柄清除定时器
-    * `event`                                   事件, ie 兼容性问题, 一般直接用传入的 e 
-        * `target`                              事件目标
-        * `srcElement`                          事件目标, ie 兼任性问题
+* `window`                                      
+    * 弹窗工具
+        * `alert(str)`                              提示框
+        * `confirm(str)`                            判断提示框
+        * `eval(str)`                               把字符串当代码执行, es3 不能使用
+        * `prompt(str)`                             输入框 
+    * 计时器
+        * `setInterval(function,num)`               系统每过 n 毫秒调用一次回调函数, 返回一个时间句柄
+        * `clearInterval(timer)`                    通过时间句柄清除计时器
+        * `setTimeout(function,num)`                系统等待 n 毫秒后启动回调函数, 返回一个定时器句柄
+        * `clearTimeout(timer)`                     通过事件句柄清除定时器
+    * 视窗属性
+        * `innerWidth`                              可视 html 的宽度
+        * `innerHeight`                             可视 html 的高度
+        * `pageXOffset`                             横向滚动条滚动距离
+        * `pageYOffset`                             纵向滚动条滚动距离
+    * 操作视窗
+        * `scroll(x,y)`                             设置 x 轴滚动条距离, y 轴滚动条距离
+        * `scrollTo(x,y)`                           设置 x 轴滚动条距离, y 轴滚动条距离
+        * `scrollBy(x,y)`                           设置 x 轴滚动条累加距离, y 轴滚动条累加距离
+    * 获取 css 样式
+        * `getComputedStyle( Ele, null)`            获取元素的样式表(包含所有样式表), 第二个参入可以写入 字符串类型伪元素名来获取伪元素样式
+            * `cssProp`                             css 样式名称, '-'分隔符用小驼峰代替, 仅为行间样式
+    * 事件
+        * `event`                                   事件,`function(event)` ie 兼容性问题, 一般直接用传入的 `e` 
+            * `target`                                  事件目标
+            * `srcElement`                              事件目标, ie 兼任性问题
 
 
 
@@ -288,10 +318,28 @@
     * `toSource(num)`	                        返回该对象的源代码
     * `valueOf(num)`	                        返回 Math 对象的原始值
 
-##### 类
+##### 对象
 
-* 时间类
-* `new Date()`
-    * `getTime()`                               获取当前时间的时间戳
+* 时间对象
+* `new Date()`                                  获取时间字符串
+    * 获取的数值为对象创建时刻的时间信息
+    * `getDate()`                               获取现在是本月第几天
+    * `getDay()`                                获取现在是本周第几天
+    * `getMonth()`                              获取现在是本年第几月
+    * `getFullYear()`                           获取现在的年份
+    * `getHours()`                              获取现在是今天的第几个小时
+    * `getMinutes()`                            获取现在是本小时的第几分钟
+    * `getSeconds()`                            获取现在是本分钟的第几秒
+    * `getMilliseconds()`                       获取现在是本秒的多少毫秒
+    * `getTime()`                               获取当前时间的时间戳( 1970年1月1日至今的毫秒数 )
+    * `setDate(num)`                            设置当前对象时间是本月第几天, 并返回时间戳
+    * `setDay(num)`                             设置当前对象时间是本周第几天, 并返回时间戳
+    * `setMonth(num)`                           设置当前对象时间是本年第几月, 并返回时间戳
+    * `setFullYear(num)`                        设置当前对象时间的年份, 并返回时间戳
+    * `setHours(num)`                           设置当前对象时间是今天的第几个小时, 并返回时间戳
+    * `setMinutes(num)`                         设置当前对象时间是本小时的第几分钟, 并返回时间戳
+    * `setSeconds(num)`                         设置当前对象时间是本分钟的第几秒, 并返回时间戳
+    * `setMilliseconds(num)`                    设置当前对象时间是本秒的多少毫秒, 并返回时间戳
+    * `setTime(num)`                            设置当前对象时间的时间戳( 1970年1月1日至今的毫秒数 )
 
 

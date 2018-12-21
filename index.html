@@ -5,42 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="javascript/Tools.js"></script>
     <style>
     *{
         font-family: arial;
         font-weight: lighter;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    html, body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div {
+        width: 300px;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    ul {
+        width: 1500px;
+        height: 200px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .trans {
+        transition: left 1s;
+    }
+
+    .test {
+        width: 60px;
+        height: 10px;
+        top: 180px;
+        left: 150px;
+        margin-left: -30px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .test li {
+        background: #aaa;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .testAction {
+        background: white!important;
+    }
+
+    ul>li{
+        width: 300px;
+        height: 200px;
+        float: left;
     }
     </style>
 </head>
 <body>
     <div>
-        <i></i>
-        <b></b>
-        <span></span>
-        </b>
+        <ul>
+            <li style="background:yellowgreen;"></li>
+            <li style="background:red;"></li>
+            <li style="background:tomato;"></li>
+            <li style="background:green;"></li>
+            <li style="background:yellowgreen;"></li>
+        </ul>
+        <ul class='test'>
+            <li class="testAction"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
+    
     <script>
-        var div = document.getElementsByTagName('div')[0];
-        var b = document.getElementsByTagName('span')[0];
-        var p = document.createElement('p');
+        var ul = document.getElementsByTagName('ul')[0];
+        var li = document.getElementsByTagName('ul')[1].getElementsByTagName('li')
 
-        Element.prototype.insertAfter = function(Ele, EleChild){
-            var child = this.children
-            var childlen = child.length
-            if(childlen > 0){
-                for(var i = 0; i < childlen; i++){
-                    if(child[i].nodeName == EleChild.nodeName){
-                        if(i === childlen-1){
-                            this.appendChild(Ele)
-                        }else{
-                            this.insertBefore(Ele,child[i+1])
+        var ulLeft = 0;
+        var ulNum = 0;
+        var liLength = li.length;
+
+        var demo = function () {
+                var timer1 = setInterval(function () {
+                    ul.className = 'trans'
+                    let i = parseInt(getStyle(ul, 'left'))
+                    ulLeft = -300 * (++ulNum);
+                    ul.style.left = ulLeft + 'px';
+                    for (let i = 0; i < liLength; i++) {
+                        li[i].className = ''
+                    }
+                    if(ulNum === 4){
+                        ulNum = 0;
+                    }
+                    li[ulNum].className = 'testAction'
+                    setTimeout(function () {
+                        let j = parseInt(getStyle(ul, 'left'))
+                        if (j < -900) {
+                            ul.className = ''
+                            ulLeft = 0;
+                            ul.style.left = ulLeft + 'px';
                         }
-                    }+
-                }
+                        
+                    }, 1000)
+                }, 2000)
+                return timer1
             }
-            return Ele
+
+        var timer = demo()
+
+        for (let i = 0; i < liLength; i++) {
+            (function(){
+                li[i].onmouseover = function () {
+                    clearInterval(timer)
+                    for (let i = 0; i < liLength; i++) {
+                        li[i].className = ''
+                    }
+                    li[i].className = 'testAction'
+                    ul.className = 'trans'
+                    ulNum = i
+                    ulLeft = -300*ulNum;
+                    console.log(ulLeft)
+                    ul.style.left = ulLeft + 'px';
+                }
+                li[i].onmouseout = function () {
+                    timer = demo()
+                }
+            })()
         }
-        console.log(typeof(div))
+
+        ul.onmouseover = function(){
+            clearInterval(timer)
+        }
+
+        ul.onmouseout = function(){
+            timer = demo()
+        }
+
+        
     </script>
 </body>
 </html>
