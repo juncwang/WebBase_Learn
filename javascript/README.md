@@ -161,14 +161,14 @@
     * `compatMode`                              当前浏览器模式
     * `write(str)`                              网页输出   
     * `documentElement`                         html 内容
-        * `clientWidth`                         可视 html 的宽度, 如果 documentElement 的该值无意义, 这个值就有意义
-        * `clientHeight`                        可视 html 的高度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `clientWidth`                         可视 html 的宽度, `compatMode=CSS` 模式使用
+        * `clientHeight`                        可视 html 的高度, `compatMode=CSS` 模式使用
         * `scrollLeft`                          横向滚动条距离, 如果 body 的该值无意义, 这个值就有意义
         * `scrollTop`                           纵向滚动条距离, 如果 body 的该值无意义, 这个值就有意义
     * `head`                                    head 内容
     * `body`                                    body 内容
-        * `clientWidth`                         可视 html 的宽度, 如果 documentElement 的该值无意义, 这个值就有意义
-        * `clientHeight`                        可视 html 的高度, 如果 documentElement 的该值无意义, 这个值就有意义
+        * `clientWidth`                         可视 html 的宽度, `compatMode=BackCompat` 模式使用
+        * `clientHeight`                        可视 html 的高度, `compatMode=BackCompat` 模式使用
         * `scrollLeft`                          横向滚动条距离, 如果 documentElement 的该值无意义, 这个值就有意义
         * `scrollTop`                           纵向滚动条距离, 如果 documentElement 的该值无意义, 这个值就有意义
     * 创建元素
@@ -186,7 +186,10 @@
 
 * 元素节点
 * `Element`                                     
-    * `addEventListener()`                          添加一个事件
+    * `addEventListener(eventType,func,bool)`       添加一个事件 `bool` true 为捕获事件 false 为冒泡事件
+    * `removeEventListener(eventType,func,bool)`    删除一个事件
+    * `attachEvent('on + eventType',func)`          添加一个事件   ie8
+    * `detachEvent('on + eventType',func)`          删除一个事件   ie8
     * `appendChild(Ele)`                            添加一个子节点
     * `insertBefore(Ele,EleChild)`                  为子元素节点 strChild 之前的位置插入一个节点
     * `remove()`                                    删除自身
@@ -241,11 +244,51 @@
             * `nextElementSibling`                          下一个兄弟元素节点
             * `previousElementSibling`                      上一个兄弟元素节点
     * 事件
-        * `click()`                                     调用元素点击事件
-        * `onclick`                                     设置点击事件的回调函数(参数)
-        * `onmouseover`                                 鼠标滑动事件的回调函数(参数e)
-        * `onkeydown`                                   键盘按下事件的回调函数(参数e)
-    
+        * `click()`                                     执行点击事件
+        * `onclick`                                     设置点击事件的回调函数(参数e)
+        * `focus()`                                     执行聚焦事件
+        * `onfocus`                                     设置聚焦事件的回调函数(参数e)
+        * `blur()`                                      执行失去焦点事件
+        * `onBlur`                                      设置失去焦点事件的回调函数(参数e)
+        * `oninput`                                     输入内容时的事件的回调函数(参数e)
+        * `onchange`                                    设置失去焦点时内容改变事件的回调函数(参数)
+        * `onsubmit`                                    设置提交事件的回调函数(参数)
+        * `onselect`                                    设置选择事件的回调函数(参数)
+        * `onmouseover`                                 鼠标滑入事件的回调函数(参数e) 旧
+        * `onmouseenter`                                鼠标滑入事件的回调函数(参数e) 新
+        * `onmouseout`                                  鼠标滑出事件的回调函数(参数e) 旧
+        * `onmouseleave`                                鼠标滑出事件的回调函数(参数e) 新
+        * `onmousemove`                                 鼠标滑动事件的回调函数(参数e) 
+        * `onmousedown`                                 鼠标按下事件的回调函数(参数e)
+        * `onmouseup`                                   鼠标抬起事件的回调函数(参数e)
+        * `oncontextmenu`                               右键弹窗事件的回调函数(参数e), 返回 false 将不打开右键菜单
+        * `onkeydown`                                   键盘按下事件的回调函数(参数e, 监听所有的按键)
+        * `onkeypress`                                  键盘按下事件的回调函数(参数e, 仅监听字符按键, 有 charCode 属性)
+        * `onkeyup`                                     键盘抬起事件的回调函数(参数e)
+        * `ontouchstart`                                触碰开始事件的回调函数(参数e)
+        * `ontouchmove`                                 触碰移动事件的回调函数(参数e)
+        * `ontouchend`                                  触碰结束事件的回调函数(参数e)
+        * `onscroll`                                    滚动条滚动事件的回调函数(参数e) windown 使用
+        * `onload`                                      所有页面内容加载完成后调用的事件的回调函数(参数e) windown 使用
+
+* 事件
+* `event`                                 事件,`function(event)` 一般直接用传入的 `event` 
+* 一般浏览器会传回一个 event 对象(ie 不会传回), ie 则会把对象放在 window.event 上
+* 所以如果需要使用事件对象需首先解决兼容性问题 `var event = event || window.event`
+    * `stopPropagation()`                 取消冒泡
+    * `cancelBubble = true`               取消冒泡 ie
+    * `preventDefault()`                  取消默认事件
+    * `returnValue = false`               取消默认事件 ie
+        * `javascript: void(false)`       取消默认事件 在 html 事件属性内写入
+    * `target`                            事件源对象, 谁触发的事件
+    * `srcElement`                        事件源对象, 谁触发的事件, ie 兼任性问题
+    * `button`                            鼠标键位(仅 onmousedown/up 可用)
+    * `code`                              键盘字符
+    * `key`                               键盘字符
+    * `charCode`                          键位的 ASC 码
+    * `which`                             键位的 ASC 码, (不绝对准确)
+
+
 * 窗口
 * `window`                                      
     * 弹窗工具
@@ -270,10 +313,7 @@
     * 获取 css 样式
         * `getComputedStyle( Ele, null)`            获取元素的样式表(包含所有样式表), 第二个参入可以写入 字符串类型伪元素名来获取伪元素样式
             * `cssProp`                             css 样式名称, '-'分隔符用小驼峰代替, 仅为行间样式
-    * 事件
-        * `event`                                   事件,`function(event)` ie 兼容性问题, 一般直接用传入的 `e` 
-            * `target`                                  事件目标
-            * `srcElement`                              事件目标, ie 兼任性问题
+    
 
 
 
@@ -283,6 +323,7 @@
 * `parseFloat(var)`                             其他类型转换成浮点数
 * `parseInt(var)`                               其他类型转换成整数,第二个参数为进制(默认10)
 * `String(var)`                                 把其他类型转换成字符串
+    * `formCharCode(charCode)`                  把 ASC 码转换成字符
 * `typeof(var)`                                 返回变量类型
 * `isNaN(var)`                                  返回传入值是否为 NaN, 此方法先使用 Number 方法进行转换后比较
 
@@ -294,6 +335,8 @@
 
 * 数组方法
 * `length`                                      数组的长度(参数)
+
+##### 静态类
 
 * 数学相关
 * `Math`                                        

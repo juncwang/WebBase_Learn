@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../javascript/Tools.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .playImage {
+            width: 1800px;
+            height: 200px;
+            position: absolute;
+            left: -300px;
+            top: 0px;
+            background: black;
+        }
+
+        .playImageAnim {
+            transition: left .5s;
+        }
+
+        .playImage li {
+            width: 300px;
+            height: 200px;
+            float: left;
+        }
+
+        .moveImage {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .moveImage li {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+            cursor: pointer;
+            opacity: .5;
+            box-shadow: 1px 1px 5px #424242;
+        }
+
+        .moveImage li:hover {
+            opacity: .8;
+        }
+
+        .moveImage li:active {
+            opacity: .2;
+        }
+
+        .prevImage {
+            left: 5px;
+        }
+
+        .nextImage {
+            right: 5px;
+        }
+
+        .numImage {
+            width: 50px;
+            height: 8px;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            margin-left: -25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .numImage li {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            opacity: .3;
+            cursor: pointer;
+            box-shadow: 1px 1px 5px #424242;
+        }
+
+        .numImage li:hover{
+            opacity: .8;
+        }
+
+        .numImage li:active{
+            opacity: .2;
+        }
+
+        .actionImage{
+            opacity: .8!important;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="playImage playImageAnim">
+            <li class="playImageChild" style="background:green;"></li>
+            <li class="playImageChild" style="background-color:yellowgreen;"></li>
+            <li class="playImageChild" style="background:red;"></li>
+            <li class="playImageChild" style="background:tomato;"></li>
+            <li class="playImageChild" style="background:green;"></li>
+            <li class="playImageChild" style="background:yellowgreen;"></li>
+        </ul>
+        <ul class="moveImage">
+            <li class="prevImage"></li>
+            <li class="nextImage"></li>
+        </ul>
+        <ul class='numImage'>
+            <li class="actionImage"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    
+    <script>
+        var playImage = document.getElementsByClassName('playImage')[0],
+            playImageChild = document.getElementsByClassName('playImageChild'),
+            prevBtn = document.getElementsByClassName('prevImage')[0],
+            nextBtn = document.getElementsByClassName('nextImage')[0],
+            moveImage = document.getElementsByClassName('moveImage')[0],
+            numImage = document.getElementsByClassName('numImage')[0].getElementsByTagName('li'),
+            numImageLen = numImage.length,
+            playImageChildNum = playImageChild.length-1,
+            playImageChildWidth = parseInt(getStyle(playImageChild[0], 'width')),
+            playImageChildInt = 1,
+            TimeoutSpeed = 500,
+            TimerInterval = null,
+            TimeDate = 0;
+
+        
+
+        function nextImage(){
+            playImage.className = 'playImage playImageAnim'
+            playImageChildInt++;
+            let posX = -playImageChildInt*playImageChildWidth
+            if(posX >= -(playImageChildWidth*playImageChildNum)){
+                playImage.style.left = posX + 'px'
+                if((posX - playImageChildWidth) < -(playImageChildWidth*playImageChildNum)){
+                    playImageChildInt = 1
+                    setTimeout(function(){
+                        playImage.className = 'playImage'
+                        playImage.style.left = -playImageChildWidth + 'px'
+                    },TimeoutSpeed)
+                }
+                for(let i = 0; i<numImageLen; i++){
+                    numImage[i].className = null;
+                }
+                numImage[playImageChildInt-1].className = 'actionImage'
+            }   
+        }
+
+        function prevImage(){
+            playImage.className = 'playImage playImageAnim'
+            playImageChildInt--;
+            let posX = -playImageChildInt*playImageChildWidth
+            if(posX <= 0){
+                playImage.style.left = posX + 'px'
+                if(posX > -playImageChildWidth){
+                    playImageChildInt = (playImageChildNum-1)
+                    setTimeout(function(){
+                        playImage.className = 'playImage'
+                        playImage.style.left = -(playImageChildWidth*(playImageChildNum-1)) + 'px'
+                    },TimeoutSpeed)
+                }
+                for(let i = 0; i<numImageLen; i++){
+                    numImage[i].className = null;
+                }
+                numImage[playImageChildInt-1].className = 'actionImage'
+            }
+        }
+
+        TimerInterval = setInterval(function(){
+            nextImage()
+        },2000)
+
+        moveImage.onmouseover = function(){
+            clearInterval(TimerInterval)
+        }
+
+        moveImage.onmouseout = function(){
+            TimerInterval = setInterval(function(){
+                nextImage()
+            },2000)
+        }
+
+        prevBtn.onclick = function(){
+            if((new Date().getTime() - TimeDate) > 500){
+                prevImage()
+                TimeDate = new Date().getTime()
+            }
+        }
+
+        nextBtn.onclick = function(){
+            if((new Date().getTime() - TimeDate) > 500){
+                nextImage()
+                TimeDate = new Date().getTime()
+            }
+        }
+
+        for(let i = 0; i<numImageLen; i++){
+            numImage[i].onclick = function(){
+                for(let i = 0; i<numImageLen; i++){
+                    numImage[i].className = null
+                }
+                playImage.className = 'playImage playImageAnim'
+                numImage[i].className = 'actionImage'
+                playImageChildInt = i + 1
+                playImage.style.left = -playImageChildInt*playImageChildWidth + 'px'
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

@@ -7,6 +7,9 @@
 // 获取浏览器滚动条值对象 {x, y} - getScrollOffset()
 // 获取浏览器可视宽高对象 {w, h} - getViewportOffset()
 // 获取元素的样式信息 - getStyle(elem, str)
+// 为元素绑定事件 - addEvent(elem, eventType, func)
+// 阻止事件冒泡功能 - stopBubble(event)
+// 取消默认事件功能 - function cancelDefaultEvent (event)
 // 实现在元素下一位加入新元素 - Element.prototype.insertAfter(Ele, eleChild) - 类似于 insertBefore 方法
 
 
@@ -99,6 +102,34 @@ function getStyle(elem, prop){
         return window.getComputedStyle(elem, null)[prop]
     }else{
         return elem.currentStyle[prop]
+    }
+}
+
+function addEvent(elem, eventType, func) {
+    if(elem.addEventListener){
+        elem.addEventListener(eventType, func, false)
+    }else if(elem.attachEvent){
+        elem.attachEvent('on' + eventType, function(){
+            func.call(elem);
+        })
+    }else{
+        elem['on' + eventType] = func;
+    }
+}
+
+function stopBubble(event){
+    if(event.stopPropagation()){
+        event.stopPropagation()
+    }else{
+        event.cancelBubble = true
+    }
+}
+
+function cancelDefaultEvent (event){
+    if(event.preventDefault()){
+        event.preventDefault()
+    }else{
+        event.returnValue = false
     }
 }
 
