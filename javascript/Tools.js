@@ -9,7 +9,10 @@
 // 获取元素的样式信息 - getStyle(elem, str)
 // 为元素绑定事件 - addEvent(elem, eventType, func)
 // 阻止事件冒泡功能 - stopBubble(event)
-// 取消默认事件功能 - function cancelDefaultEvent (event)
+// 取消默认事件功能 - cancelDefaultEvent (event)
+// 异步加载 js 功能 - loadScript(url, callback)
+    // 调用举例
+    // loadScript('./javascript/Tools.js', function(){ loadScript() })
 // 实现在元素下一位加入新元素 - Element.prototype.insertAfter(Ele, eleChild) - 类似于 insertBefore 方法
 
 
@@ -131,6 +134,24 @@ function cancelDefaultEvent (event){
     }else{
         event.returnValue = false
     }
+}
+
+function loadScript(url, callback) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    if (script.readyState) {
+        script.onreadystatechange = function () {
+            if (script.readyState == 'complete' || script.readyState == 'loaded') {
+                callback();
+            }
+        }
+    } else {
+        script.onload = function () {
+            callback();
+        }
+    }
+    script.src = url;
+    document.head.appendChild(script);
 }
 
 Element.prototype.insertAfter = function(Ele, EleChild){

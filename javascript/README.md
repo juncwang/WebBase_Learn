@@ -270,6 +270,8 @@
         * `ontouchend`                                  触碰结束事件的回调函数(参数e)
         * `onscroll`                                    滚动条滚动事件的回调函数(参数e) windown 使用
         * `onload`                                      所有页面内容加载完成后调用的事件的回调函数(参数e) windown 使用
+        * `onreadystatechange`                          元素状态改变事件, 仅限于 ie9 以下版本浏览器使用 为属性 readyState 值的改变触发
+        * `DOMContentLoaded`                            当页面所有内容解析完毕后执行, 只能使用 addEventListener 方法进行添加
 
 * 事件
 * `event`                                 事件,`function(event)` 一般直接用传入的 `event` 
@@ -324,6 +326,12 @@
 * `parseInt(var)`                               其他类型转换成整数,第二个参数为进制(默认10)
 * `String(var)`                                 把其他类型转换成字符串
     * `formCharCode(charCode)`                  把 ASC 码转换成字符
+    * `match(str)`                              传入 str 返回匹配成功的字符串数组
+    * `search(reg)`                             传入 str 方悔匹配成功的位置索引
+    * `split(reg)`                              使用 str 进行分割字符串
+    * `replace(reg)`                            使用 str 进行替换字符串
+    * `toUpperCase()`                           把 字符串 转换成大写并返回
+    * `toLowerCase()`                           把 字符串 转换成小写并返回
 * `typeof(var)`                                 返回变量类型
 * `isNaN(var)`                                  返回传入值是否为 NaN, 此方法先使用 Number 方法进行转换后比较
 
@@ -361,6 +369,11 @@
     * `toSource(num)`	                        返回该对象的源代码
     * `valueOf(num)`	                        返回 Math 对象的原始值
 
+* 数据对象
+* `JSON`
+    * `parse()`                                 把字符串转成 json 对象
+    * `stringify()`                             把 json 对象转成字符串
+
 ##### 对象
 
 * 时间对象
@@ -386,3 +399,41 @@
     * `setTime(num)`                            设置当前对象时间的时间戳( 1970年1月1日至今的毫秒数 )
 
 
+##### 异步加载 js
+
+1. 在 html 引入 js 的标签内加入属性 defer="defer" 实现异步加载           只有 ie9 以下可以使用
+2. 在 html 引入 js 的标签内加入属性 async="async" 实现异步加载           ie9 以外的其他浏览器可以使用
+3. 利用 js 内加载
+    ```js
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = './javascript/tools.js';
+
+        document.head.appendChild(script);
+    ```
+
+##### 正则表达式
+
+* 创建正则表达式
+    1. `var reg = /abc/`                        直接创建
+        * `var reg = /abc/i`                    忽略大小写
+        * `var reg = /abc/g`                    全局匹配
+        * `var reg = /abc/m`                    多行匹配
+        * 三个属性可以写在一起
+
+    2. `var reg = new RegExp("abc")`            直接创建
+        * `var reg = new RegExp("abc","i")`     忽略大小写
+        * `var reg = new RegExp("abc","g")`     全局匹配
+        * `var reg = new RegExp("abc","m")`     多行匹配
+        * 三个属性可以写在一起
+
+* 属性
+* `source`                                      源文本
+* `lastIndex`                                   下一次匹配游标的位置
+
+* 方法
+* `test(str)`                                   查找字符串内是否有匹配
+* `String.match(reg)`                           传入 正则表达式 返回匹配成功的字符串数组
+* `String.search(reg)`                          传入 正则表达式 方悔匹配成功的位置索引 ( -1 表示没有匹配到)
+* `String.split(reg)`                           使用正则表达式进行分割字符串
+* `exec(str)`                                   返回一个类数组 返回 匹配的值 index位置 和 str 本身, 每次匹配一组, 下次匹配时按游标当前位置继续往下匹配
