@@ -343,6 +343,8 @@
 
 * 数组方法
 * `length`                                      数组的长度(参数)
+* `push(object)`                                在数组末尾添加一个数据
+* `slice(startNum, endNum)`                     返回数组从多少位到多少位到数组
 
 ##### 静态类
 
