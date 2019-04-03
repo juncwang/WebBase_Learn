@@ -23,6 +23,7 @@
 // });
 // 将input.files文件转成可在html内使用的文件链接 - getObjectURL(file) 并返回链接地址
 // 将input.files文件转成 base64 字符串链接 - getBase64URL(file) 并返回base64字符串链接
+// 将input.files文件上传至服务器 - uploadfile(file) 
 
 function deepClone(origin, target) {
     var target = target || {},
@@ -203,3 +204,18 @@ getBase64URL(file){
     }
     reader.readAsDataURL(file)
 }
+
+uploadfile(file){
+            let formdata = new FormData()
+            formdata.append('file',file)
+            formdata.append('submit',false)
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            this.$axios.post('/api/files/upload', formdata, config)
+                .then(res => {
+                    console.log(res.data)
+                })
+        }
