@@ -2,7 +2,7 @@
 // 深度拷贝并返回新对象 - deepClone(origin, target)
 // 判断类型返回类型字符串 - type(target)
 // 数组去重并返回新数组 - Array.prototype.unique() - 把方法直接放入到 Array 的方法
-// 将input.files文件转成可在html内使用的文件链接 - getObjectURL(file)
+// 将input.files文件转成可在html内使用的文件链接 - getObjectURL(file) 并返回链接地址
 
 // document 工具方法 
 // 获取浏览器滚动条值对象 {x, y} - getScrollOffset()
