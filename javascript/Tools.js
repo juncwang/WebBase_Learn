@@ -16,6 +16,11 @@
 // 实现在元素下一位加入新元素 - Element.prototype.insertAfter(Ele, eleChild) - 类似于 insertBefore 方法
 
 // 文件处理
+// 文件预先需要处理一下
+// let files = [...input.files]
+// files.forEach(file => {
+// 具体方法使用位置
+// });
 // 将input.files文件转成可在html内使用的文件链接 - getObjectURL(file) 并返回链接地址
 // 将input.files文件转成 base64 字符串链接 - getBase64URL(file) 并返回base64字符串链接
 
