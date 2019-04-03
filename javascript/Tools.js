@@ -2,6 +2,7 @@
 // 深度拷贝并返回新对象 - deepClone(origin, target)
 // 判断类型返回类型字符串 - type(target)
 // 数组去重并返回新数组 - Array.prototype.unique() - 把方法直接放入到 Array 的方法
+// 将input.files文件转成可在html内使用的文件链接 - getObjectURL(file)
 
 // document 工具方法 
 // 获取浏览器滚动条值对象 {x, y} - getScrollOffset()
@@ -171,3 +172,18 @@ Element.prototype.insertAfter = function(Ele, EleChild){
     }
     console.error("Uncaught DOMException: Failed to execute 'insertAfter' on 'Node': The node before which the new node is to be inserted is not a child of this node.\n\tat <anonymous>:1:5")
 }
+
+getObjectURL(file) {
+      let url = null;
+      if (window.createObjectURL != undefined) {
+        // basic
+        url = window.createObjectURL(file);
+      } else if (window.URL != undefined) {
+        // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+      } else if (window.webkitURL != undefined) {
+        // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+      }
+      return url;
+    }
